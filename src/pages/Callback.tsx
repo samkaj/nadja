@@ -3,6 +3,13 @@ import UserContext, { User } from "../context/User";
 import { Buffer } from "buffer";
 import { Navigate, redirect } from "react-router-dom";
 
+const nullUser: User = {
+  name: "Unknown",
+  accessToken: "",
+  refreshToken: "",
+  sessionExpiresAt: 0,
+};
+
 const Callback = () => {
   const { user, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
@@ -42,13 +49,14 @@ const Callback = () => {
     });
 
     response.json().then(async (data) => {
-      const user: User = {
-        name: await getUserName(data.access_token),
-        accessToken: data.access_token,
-        refreshToken: data.refresh_token,
-        sessionExpiresAt: data.expires_in,
-      };
-
+      const user: User = data.error
+        ? nullUser
+        : {
+            name: await getUserName(data.access_token),
+            accessToken: data.access_token,
+            refreshToken: data.refresh_token,
+            sessionExpiresAt: Date.now() + data.expires_in * 1000,
+          };
       setUser(user);
     });
     setLoading(false);
