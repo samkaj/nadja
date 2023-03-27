@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import UserContext, { User } from "../context/User";
+import { UserContext, User, getUserName } from "../context/User";
 import { Buffer } from "buffer";
-import { Navigate, redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const nullUser: User = {
   name: "Unknown",
@@ -28,6 +28,7 @@ const Callback = () => {
     }
   };
 
+  // TODO: Move to UserContext
   const loginUser = async (code: string) => {
     const url = "https://accounts.spotify.com/api/token";
     const redirectUri = "http://localhost:3000/callback";
@@ -60,22 +61,6 @@ const Callback = () => {
       setUser(user);
     });
     setLoading(false);
-  };
-
-  const getUserName = async (accessToken: string): Promise<string> => {
-    if (!accessToken) return "Unknown";
-    const url = "https://api.spotify.com/v1/me";
-    const headers = { Authorization: "Bearer " + accessToken };
-
-    return fetch(url, { method: "GET", headers })
-      .then((response) => response.json())
-      .then((data) => {
-        return data.display_name;
-      })
-      .catch((error) => {
-        console.error(error);
-        return "Unknown";
-      });
   };
 
   return (

@@ -1,21 +1,16 @@
 import Home from "./pages/Home";
-import UserContext, { User } from "./context/User";
-import { useState } from "react";
-import Login from "./pages/Login";
+import { UserContextProvider } from "./context/User";
 import Callback from "./pages/Callback";
-import { Routes, Route, Outlet, Link, Router } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 const App = () => {
-  const [user, setUser] = useState<User>(null);
-
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContextProvider>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/callback" element={<Callback />} />
       </Routes>
-    </UserContext.Provider>
+    </UserContextProvider>
   );
 };
 
