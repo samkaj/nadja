@@ -1,4 +1,6 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
+import { Buffer } from "buffer";
+import useLocalStorage from "../hooks/PersistState";
 
 export type User = {
   accessToken: string;
@@ -27,21 +29,17 @@ type UserContextProviderProps = {
 
 const UserContextProvider = (props: UserContextProviderProps) => {
   const [user, setUser] = useState<User>(null);
-  const [isAccessTokenExpired, setIsAccessTokenExpired] = useState(false);
+  const [isAccessTokenExpired] = useState(false);
+  const [getLocalStorage, setLocalStorage] = useLocalStorage("user");
 
   useEffect(() => {
-    const checkAccessTokenExpiration = () => {
-      if (!user) {
-        setIsAccessTokenExpired(true);
-        return;
-      }
-
-      const isExpired = user.sessionExpiresAt < Date.now() / 1000;
-      setIsAccessTokenExpired(isExpired);
-    };
-
-    checkAccessTokenExpiration();
-  }, [user]);
+    const userFromStorage = getLocalStorage();
+    if (userFromStorage) {
+      setUser(userFromStorage);
+    } else if (user) {
+      setLocalStorage(user);
+    }
+  }, [user, setUser, setLocalStorage, getLocalStorage]);
 
   const refreshAccessToken = async () => {
     const url = "https://accounts.spotify.com/api/token";
