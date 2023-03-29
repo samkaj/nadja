@@ -82,6 +82,39 @@ const UserContextProvider = (props: UserContextProviderProps) => {
   );
 };
 
+export const loginUser = async (code: string): Promise<User> => {
+  const url = "https://accounts.spotify.com/api/token";
+  const redirectUri = "http://localhost:3000/callback";
+  const grantType = "authorization_code";
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization:
+        "Basic " +
+        Buffer.from(
+          process.env.REACT_APP_SPOTIFY_CLIENT_ID +
+            ":" +
+            process.env.REACT_APP_SPOTIFY_CLIENT_SECRET
+        ).toString("base64"),
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `grant_type=${grantType}&code=${code}&redirect_uri=${redirectUri}`,
+  });
+
+  return response.json().then(async (data) => {
+    const user: User = data.error
+      ? null
+      : {
+          name: await getUserName(data.access_token),
+          accessToken: data.access_token,
+          refreshToken: data.refresh_token,
+          sessionExpiresAt: Date.now() + data.expires_in * 1000,
+        };
+    return user;
+  });
+};
+
 export const getUserName = async (accessToken: string): Promise<string> => {
   if (!accessToken) return "Unknown";
   const url = "https://api.spotify.com/v1/me";
