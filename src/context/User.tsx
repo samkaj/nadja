@@ -39,7 +39,7 @@ const UserContextProvider = (props: UserContextProviderProps) => {
     } else if (user) {
       setLocalStorage(user);
     }
-  }, [user, setUser, setLocalStorage, getLocalStorage]);
+  }, [setUser]);
 
   const refreshAccessToken = async () => {
     const url = "https://accounts.spotify.com/api/token";
