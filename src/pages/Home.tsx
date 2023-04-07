@@ -1,15 +1,17 @@
 import { useContext } from "react";
 import { UserContext } from "../context/User";
+import Welcome from "../views/Welcome";
 import Login from "./Login";
+import SignedIn from "../views/SignedIn";
 
 const Home = () => {
   const { user } = useContext(UserContext);
+
   return (
-    <div>
-      <h1>Home</h1>
-      {user && <p>Logged in as {user.name}</p>}
-      {!user && <Login />}
-    </div>
+    <>
+      {!user && <Welcome loginButton={<Login />} />}
+      {user && <SignedIn />}
+    </>
   );
 };
 

@@ -1,3 +1,6 @@
+import { FaSpotify } from "react-icons/fa";
+import Button from "../components/buttons/Button";
+
 const Login = () => {
   const authorize = () => {
     const url = "https://accounts.spotify.com/authorize";
@@ -9,7 +12,11 @@ const Login = () => {
     window.location.href = `${url}?client_id=${clientId}&response_type=${responseType}&redirect_uri=${redirectUri}&scope=${scope}&state=${state}`;
   };
 
-  return <button onClick={authorize}>Login</button>;
+  return (
+    <Button Icon={FaSpotify} onClick={authorize} className="spotify-btn">
+      {"Sign in with Spotify"}
+    </Button>
+  );
 };
 
 export default Login;

@@ -1,0 +1,55 @@
+.spotify-btn {
+  color: var(--white-main);
+  background-color: var(--black-light);
+  font-size: 1.2em;
+}
+
+.spotify-btn:hover {
+  background-color: var(--black-main);
+  color: var(--white-main);
+}
+
+/* button:hover>svg {
+  fill: var(--black-main);
+} */
+
+p {
+  font-size: 1.3em;
+  text-align: justify;
+  width: 87%;
+  opacity: 0.8;
+}
+
+h1 {
+  font-weight: 400;
+}
+
+@media only screen and (max-width: 1000px) {
+  main {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    width: 80vw;
+    margin: auto;
+  }
+
+  main>* {
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 2.2em;
+    text-align: left;
+  }
+
+  p {
+    width: 100%;
+    text-align: left;
+    font-size: 0.9em;
+  }
+
+  button {
+    font-size: 1em;
+    width: 100%;
+  }
+}
