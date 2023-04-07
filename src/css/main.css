@@ -1,0 +1,93 @@
+/* Stylesheet for common attributes across the project. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Lexend:wght@400;500&display=swap');
+
+/* Colors */
+:root {
+  --black-main: #101112;
+  --black-light: #1f2123;
+  --white-main: #F0F3FA;
+  --white-light: #F7F8FA;
+  --primary-dark: #5E6CFF;
+  --primary-main: #8093F1;
+  --primary-light: #A6B1F8;
+  --secondary-main: #5EFC8D;
+  --secondary-light: #8CFFB3;
+  --tertiary-main: #F7567C;
+  --tertiary-light: #FF7B9C;
+  --caution-main: #EE6055;
+  --caution-light: #F28C82;
+  --grey-main: #E0E0E0;
+  --grey-light: #F5F5F5;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "left right";
+  height: 90vh;
+  width: 60vw;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  color: var(--black-main);
+  margin: 0;
+}
+
+* {
+  font-family: "Inter", sans-serif;
+  font-weight: normal;
+  color: var(--black-main);
+}
+
+.large {
+  font-size: 4rem;
+}
+
+.medium {
+  font-size: 2rem;
+}
+
+.small {
+  font-size: 1rem;
+}
+
+.react-icons {
+  vertical-align: middle;
+  padding: 0;
+  margin-right: 0.5em;
+  margin-bottom: 2px;
+}
+
+.black-fill {
+  fill: var(--black-main)
+}
+
+.white-fill {
+  fill: var(--white-main)
+}
+
+/* Mobile settings */
+@media only screen and (max-width: 600px) {
+  .large {
+    font-size: 2rem;
+  }
+
+  .medium {
+    font-size: 1rem;
+  }
+
+  .small {
+    font-size: 0.5rem;
+  }
+}
