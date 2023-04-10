@@ -4,9 +4,9 @@
 /* Colors */
 :root {
   --black-main: #101112;
-  --black-light: #1f2123;
-  --white-main: #F0F3FA;
-  --white-light: #F7F8FA;
+  --black-light: #1c1f21;
+  --white-main: #f1f5fd;
+  --white-light: #fdfeff;
   --primary-dark: #5E6CFF;
   --primary-main: #8093F1;
   --primary-light: #A6B1F8;
@@ -20,13 +20,19 @@
   --grey-light: #F5F5F5;
 }
 
+#wrapper {
+  display: block;
+  width: 60vw;
+  margin: auto;
+}
+
 main {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
     "left right";
   height: 90vh;
-  width: 60vw;
+  width: 100%;
   margin: auto;
   justify-content: center;
   align-items: center;
@@ -38,7 +44,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Inter", sans-serif;
+  font-family: "Lexend", sans-serif;
   font-weight: bold;
   color: var(--black-main);
   margin: 0;
@@ -51,15 +57,19 @@ h6 {
 }
 
 .large {
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 .medium {
-  font-size: 2rem;
+  font-size: 1.2rem;
 }
 
 .small {
-  font-size: 1rem;
+  font-size: 0.9rem;
+}
+
+.full-width {
+  width: 100%;
 }
 
 .react-icons {
@@ -75,6 +85,14 @@ h6 {
 
 .white-fill {
   fill: var(--white-main)
+}
+
+.shadow {
+  box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
+}
+
+.shadow-big {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
 }
 
 /* Mobile settings */

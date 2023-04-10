@@ -6,8 +6,8 @@ const SignedIn = () => {
 
   return (
     <main>
-      <h1>Sign In</h1>
-      <p>Welcome, {user?.name}</p>
+      <h1>Hi mom</h1>
+      <p>Logged in as {user?.name}</p>
     </main>
   );
 };
