@@ -11,6 +11,17 @@ button {
   margin-right: 0.2rem;
 }
 
+.hollow {
+  background-color: transparent;
+  color: var(--black-light);
+  border-color: var(--grey-main);
+}
+
+.hollow:hover {
+  background-color: var(--grey-light);
+  color: var(--black-main);
+}
+
 .primary {
   background-color: var(--primary-main);
   color: var(--white-main);
@@ -39,4 +50,15 @@ button {
 .tertiary:hover {
   color: var(--primary-light);
   text-decoration: none;
+}
+
+.clean {
+  background-color: transparent;
+  color: var(--black-light);
+  border-color: transparent;
+}
+
+.clean:hover {
+  color: var(--black-main);
+  text-decoration: underline;
 }

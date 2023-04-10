@@ -46,4 +46,13 @@ export const TertiaryButton = ({
   </button>
 );
 
+export const LinkButton = ({
+  onClick,
+  children,
+}: React.PropsWithChildren<ButtonProps>): JSX.Element => (
+  <button onClick={onClick} className="clean">
+    {children}
+  </button>
+);
+
 export default Button;
