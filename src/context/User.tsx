@@ -7,6 +7,7 @@ export type User = {
   refreshToken: string;
   name: string;
   sessionExpiresAt: number;
+  imageUrl: string;
 } | null;
 
 export type UserContextType = {
@@ -30,16 +31,23 @@ type UserContextProviderProps = {
 const UserContextProvider = (props: UserContextProviderProps) => {
   const [user, setUser] = useState<User>(null);
   const [isAccessTokenExpired] = useState(false);
-  const [getLocalStorage, setLocalStorage] = useLocalStorage("user");
+  const [getLocalStorage, setLocalStorage, removeLocalStorage] =
+    useLocalStorage("user");
 
   useEffect(() => {
     const userFromStorage = getLocalStorage();
     if (userFromStorage) {
       setUser(userFromStorage);
-    } else if (user) {
-      setLocalStorage(user);
     }
-  }, [setUser]);
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      setLocalStorage(user);
+    } else {
+      removeLocalStorage();
+    }
+  }, [user]);
 
   const refreshAccessToken = async () => {
     const url = "https://accounts.spotify.com/api/token";
@@ -61,13 +69,15 @@ const UserContextProvider = (props: UserContextProviderProps) => {
     });
 
     response.json().then(async (data) => {
+      const { name, imageUrl } = await getUserInfo(data.access_token);
       const user: User = data.error
         ? null
         : {
-            name: await getUserName(data.access_token),
+            name: name,
             accessToken: data.access_token,
             refreshToken: data.refresh_token,
             sessionExpiresAt: Date.now() + data.expires_in * 1000,
+            imageUrl: imageUrl,
           };
       setUser(user);
     });
@@ -103,32 +113,44 @@ export const loginUser = async (code: string): Promise<User> => {
   });
 
   return response.json().then(async (data) => {
+    const { name, imageUrl } = await getUserInfo(data.access_token);
     const user: User = data.error
       ? null
       : {
-          name: await getUserName(data.access_token),
+          name: name,
           accessToken: data.access_token,
           refreshToken: data.refresh_token,
           sessionExpiresAt: Date.now() + data.expires_in * 1000,
+          imageUrl: imageUrl,
         };
     return user;
   });
 };
 
-export const getUserName = async (accessToken: string): Promise<string> => {
-  if (!accessToken) return "Unknown";
+export const getUserInfo = async (
+  accessToken: string
+): Promise<{ name: string; imageUrl: string }> => {
+  if (!accessToken) return { name: "Unknown", imageUrl: "" };
   const url = "https://api.spotify.com/v1/me";
   const headers = { Authorization: "Bearer " + accessToken };
 
-  return fetch(url, { method: "GET", headers })
-    .then((response) => response.json())
-    .then((data) => {
-      return data.display_name;
-    })
-    .catch((error) => {
-      console.error(error);
-      return "Unknown";
-    });
+  const response = await fetch(url, { headers });
+  return response.json().then((data) => {
+    return {
+      name: data.display_name,
+      imageUrl: data.images[0].url ?? "",
+    };
+  });
+};
+
+export const authorize = () => {
+  const url = "https://accounts.spotify.com/authorize";
+  const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+  const responseType = "code";
+  const redirectUri = "http://localhost:3000/callback";
+  const scope = "playlist-modify-public%20user-top-read%20user-read-private";
+  const state = process.env.REACT_APP_SPOTIFY_STATE;
+  window.location.href = `${url}?client_id=${clientId}&response_type=${responseType}&redirect_uri=${redirectUri}&scope=${scope}&state=${state}`;
 };
 
 export { UserContext, UserContextProvider };
