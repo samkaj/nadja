@@ -77,13 +77,14 @@
   border: 2px solid var(--white-light);
 }
 
+/* 
 .profile-pic:hover,
 .profile-pic-def:hover,
 .profile-pic:focus,
 .profile-pic-def:focus {
   cursor: pointer;
   border: 2px solid var(--primary-main);
-}
+} */
 
 .profile-pic-def {
   width: 1.5em;
@@ -99,4 +100,24 @@
 .profile-pic-def:hover {
   cursor: pointer;
   fill: var(--primary-main);
+}
+
+.profile-box {
+  display: flex;
+  align-items: center;
+  padding-left: 0.5em;
+  border: 1px solid transparent;
+}
+
+.profile-box:hover {
+  cursor: pointer;
+  border-radius: 2em;
+  padding-left: 0.5em;
+  background-color: var(--grey-light);
+  border: 1px solid var(--white-main);
+}
+
+.profile-box p {
+  user-select: none;
+  padding: 0 1em 0 0.5em;
 }

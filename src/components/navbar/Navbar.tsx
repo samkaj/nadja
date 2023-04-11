@@ -23,10 +23,13 @@ const ProfileButton = () => {
 
   return (
     <div onClick={onHover} onMouseLeave={onLeave}>
-      {user?.imageUrl && (
-        <img src={user?.imageUrl} alt="Profile" className="profile-pic" />
-      )}
-      {!user?.imageUrl && <FaUser className="profile-pic-def" />}
+      <div className="profile-box">
+        {user?.imageUrl && (
+          <img src={user?.imageUrl} alt="Profile" className="profile-pic" />
+        )}
+        {!user?.imageUrl && <FaUser className="profile-pic-def" />}
+        <p className="profile-name small">{user?.name}</p>
+      </div>
       {showList && (
         <ul className="profile-list shadow-big">
           <li className="small full-width">
