@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { UserContext } from "../context/User";
+import { UserContext } from "../../context/User";
 
-const SignedIn = () => {
+const Dashboard = () => {
   const { user } = useContext(UserContext);
 
   return (
@@ -12,4 +12,4 @@ const SignedIn = () => {
   );
 };
 
-export default SignedIn;
+export default Dashboard;

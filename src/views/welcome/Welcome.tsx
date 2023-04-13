@@ -1,4 +1,4 @@
-import "../css/welcome.css";
+import "./welcome.css";
 
 type WelcomeProps = {
   loginButton: JSX.Element;

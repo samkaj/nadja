@@ -2,7 +2,7 @@ import Home from "./pages/Home";
 import { UserContextProvider } from "./context/User";
 import Callback from "./pages/Callback";
 import { Routes, Route } from "react-router-dom";
-import "./css/main.css";
+import "./app.css";
 import { IconContext } from "react-icons";
 import Navbar from "./components/navbar/Navbar";
 
