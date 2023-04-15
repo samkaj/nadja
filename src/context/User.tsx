@@ -36,6 +36,10 @@ const UserContextProvider = (props: UserContextProviderProps) => {
 
   useEffect(() => {
     const userFromStorage = getLocalStorage();
+    const isExpired = userFromStorage?.sessionExpiresAt < Date.now();
+    if (isExpired) {
+      refreshAccessToken();
+    }
     if (userFromStorage) {
       setUser(userFromStorage);
     }
