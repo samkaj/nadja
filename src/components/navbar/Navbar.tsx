@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import "./navbar.css";
+import "./navbar.scss";
 import Button, { LinkButton } from "../buttons/Button";
 import { UserContext, authorize } from "../../context/User";
 import { FaUser } from "react-icons/fa";

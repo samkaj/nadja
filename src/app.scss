@@ -1,0 +1,123 @@
+/* Stylesheet for common attributes across the project. */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Lexend:wght@400;500&display=swap");
+
+/* Colors */
+:root {
+  --black-main: #101112;
+  --black-light: #1c1f21;
+  --black-lighter: #323236;
+  --white-main: #f1f5fd;
+  --white-light: #fdfeff;
+  --primary-dark: #5e6cff;
+  --primary-main: #8093f1;
+  --primary-light: #a6b1f8;
+  --secondary-main: #5efc8d;
+  --secondary-light: #8cffb3;
+  --tertiary-main: #f7567c;
+  --tertiary-light: #ff7b9c;
+  --caution-main: #ee6055;
+  --caution-light: #f28c82;
+  --grey-dark: #949596;
+  --grey-main: #e0e0e0;
+  --grey-light: #f5f5f5;
+}
+
+body {
+  margin: 0;
+  background-color: var(--grey-light);
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Lexend", sans-serif;
+    font-weight: bold;
+    color: var(--black-main);
+    margin: 0;
+  }
+
+  .full-width {
+    grid-column: 1 / span 2;
+  }
+
+  #wrapper {
+    display: block;
+    width: 60vw;
+    margin: auto;
+    position: relative;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "left right";
+    min-height: calc(100vh - 4rem);
+    width: 100%;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+  }
+
+  * {
+    font-family: "Inter", sans-serif;
+    font-weight: normal;
+    color: var(--black-main);
+  }
+
+  .large {
+    font-size: 3rem;
+  }
+
+  .medium {
+    font-size: 1.2rem;
+  }
+
+  .small {
+    font-size: 0.9rem;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .react-icons {
+    vertical-align: middle;
+    padding: 0;
+    margin-right: 0.5em;
+    margin-bottom: 2px;
+  }
+
+  .black-fill {
+    fill: var(--black-main);
+  }
+
+  .white-fill {
+    fill: var(--white-main);
+  }
+
+  .shadow {
+    box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px,
+      rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
+  }
+
+  .shadow-big {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+  }
+}
+
+/* Mobile settings */
+@media only screen and (max-width: 600px) {
+  .large {
+    font-size: 2rem;
+  }
+
+  .medium {
+    font-size: 1rem;
+  }
+
+  .small {
+    font-size: 0.5rem;
+  }
+}

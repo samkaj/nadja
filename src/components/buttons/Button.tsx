@@ -1,5 +1,5 @@
 import { IconType } from "react-icons";
-import "./button.css";
+import "./button.scss";
 
 type ButtonProps = {
   Icon?: IconType;
@@ -7,13 +7,13 @@ type ButtonProps = {
   className?: string;
 };
 
-const Button = ({
+export const Button = ({
   Icon,
   onClick,
   className,
   children,
 }: React.PropsWithChildren<ButtonProps>): JSX.Element => (
-  <button className={className} onClick={onClick}>
+  <button type="submit" className={className} onClick={onClick}>
     {Icon && <Icon className="white-fill" />}
     {children}
   </button>
@@ -22,37 +22,38 @@ const Button = ({
 export const PrimaryButton = ({
   onClick,
   children,
+  className,
 }: React.PropsWithChildren<ButtonProps>): JSX.Element => (
-  <button onClick={onClick} className="primary">
+  <Button onClick={onClick} className={`primary ${className}`}>
     {children}
-  </button>
+  </Button>
 );
 
 export const SecondaryButton = ({
   onClick,
   children,
 }: React.PropsWithChildren<ButtonProps>): JSX.Element => (
-  <button onClick={onClick} className="secondary">
+  <Button onClick={onClick} className="secondary">
     {children}
-  </button>
+  </Button>
 );
 
 export const TertiaryButton = ({
   onClick,
   children,
 }: React.PropsWithChildren<ButtonProps>): JSX.Element => (
-  <button onClick={onClick} className="tertiary">
+  <Button onClick={onClick} className="tertiary">
     {children}
-  </button>
+  </Button>
 );
 
 export const LinkButton = ({
   onClick,
   children,
 }: React.PropsWithChildren<ButtonProps>): JSX.Element => (
-  <button onClick={onClick} className="clean">
+  <Button onClick={onClick} className="clean">
     {children}
-  </button>
+  </Button>
 );
 
 export default Button;

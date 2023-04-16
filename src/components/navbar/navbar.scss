@@ -1,19 +1,20 @@
 .navbar {
-  padding: 0 20vw;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: "left right";
-  z-index: 1;
-  position: absolute;
-  width: 60vw;
+  z-index: 2;
+  position: static;
+  width: 100vw;
   left: 0;
   top: 0;
+  background-color: var(--white-light);
 }
 
 .navbar__left {
   grid-area: left;
   display: flex;
   align-items: center;
+  padding-left: 1em;
 }
 
 .navbar__logo {
@@ -47,6 +48,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  padding-right: 1em;
 }
 
 .profile-list {

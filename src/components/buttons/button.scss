@@ -62,3 +62,12 @@ button {
   color: var(--black-main);
   text-decoration: underline;
 }
+
+.main {
+  background-color: var(--black-main);
+  color: var(--white-main);
+}
+
+.main:hover {
+  background-color: var(--black-light);
+}

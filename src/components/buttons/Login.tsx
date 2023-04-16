@@ -1,6 +1,6 @@
 import { FaSpotify } from "react-icons/fa";
-import Button from "../components/buttons/Button";
-import { authorize } from "../context/User";
+import Button from "./Button";
+import { authorize } from "../../context/User";
 
 const Login = () => {
   return (

@@ -1,4 +1,4 @@
-import "./welcome.css";
+import "./welcome.scss";
 
 type WelcomeProps = {
   loginButton: JSX.Element;
@@ -6,7 +6,7 @@ type WelcomeProps = {
 
 const Welcome = (props: WelcomeProps) => {
   return (
-    <main>
+    <main className="left-right">
       <div>
         <h1 className="large">{"Enhance your playlists with Nadja."}</h1>
         <p>
