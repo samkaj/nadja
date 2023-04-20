@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { UserContext } from "../context/User";
 import Welcome from "../views/welcome/Welcome";
 import Login from "../components/buttons/Login";
-import Dashboard from "../views/dashboard/Dashboard";
+import Generate from "../views/playlist-generator/Generator";
 
 const Home = () => {
   const { user } = useContext(UserContext);
@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <>
       {!user && <Welcome loginButton={<Login />} />}
-      {user && <Dashboard />}
+      {user && <Generate />}
     </>
   );
 };
