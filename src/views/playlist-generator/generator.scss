@@ -95,20 +95,6 @@
     margin-bottom: 0;
   }
 
-  li {
-    padding: 0.7em;
-    border-bottom: 1px solid var(--grey-light);
-    &:hover {
-      background-color: var(--grey-light);
-      cursor: pointer;
-    }
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-
   .left {
     padding: 1em;
     border-right: 1px solid var(--grey-light);
@@ -124,9 +110,6 @@
     }
   }
 
-  .selected {
-    background-color: var(--grey-light);
-  }
   .mono {
     font-family: monospace;
   }
@@ -195,6 +178,24 @@
     right: 0.5rem;
     width: calc(33vw - 1rem);
   }
+}
+
+li {
+  padding: 0.7em;
+  border-bottom: 1px solid var(--grey-light);
+  &:hover {
+    background-color: var(--grey-light);
+    cursor: pointer;
+  }
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.selected {
+  background-color: var(--grey-light);
 }
 
 .disabled,
