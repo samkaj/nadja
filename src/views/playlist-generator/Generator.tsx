@@ -8,6 +8,7 @@ import { Track } from "../../playlist-generator/spotify-objects/Track";
 import { PrimaryButton } from "../../components/buttons/Button";
 import { getRecommendations } from "../../playlist-generator/PlaylistGenerator";
 import TrackContainer from "./TrackContainer";
+import Playlist from "../playlist/Playlist";
 
 const Generator = () => {
   const { user } = useContext(UserContext);
@@ -17,6 +18,8 @@ const Generator = () => {
   const [description, setDescription] = useState<string>("");
   const [energy, setEnergy] = useState<number>(0.5);
   const [danceability, setDanceability] = useState<number>(0.5);
+  const [isGenerated, setIsGenerated] = useState<boolean>(false);
+  const [playlist, setPlaylist] = useState<any>([]);
 
   const handlePlaylistNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPlaylistName(e.target.value);
@@ -54,11 +57,8 @@ const Generator = () => {
       selectedTracks,
       accessToken: user?.accessToken ?? "",
     });
-    console.log(playlist);
-  };
-
-  type SearchResultProps = {
-    track: Track;
+    setPlaylist(playlist);
+    setIsGenerated(true);
   };
 
   const onSelect = (track: Track) => {
@@ -76,104 +76,112 @@ const Generator = () => {
   };
 
   return (
-    <main>
-      <div className="full-width generator-wrapper">
-        <h1 className="large">Playlist Generator</h1>
-        <p>
-          Search -{">"} Select 5 tracks -{">"} Select mood -{">"} Choose name -
-          {">"} Generate.
-        </p>
-        <form onSubmit={handleSearch} className="search shadow ">
-          <FaSearch />
-          <input className="medium" placeholder="Search..." type="text" />
-        </form>
-      </div>
-      <section className="results shadow">
-        <div className="left">
-          <h1 className="shadow">Search Results</h1>
-          <ul>
-            {searchResults.map((track) => {
-              return (
-                <TrackContainer track={track} onClick={() => onSelect(track)} />
-              );
-            })}
-          </ul>
-        </div>
+    <>
+      {isGenerated && <Playlist playlist={playlist} />}
+      {!isGenerated && (
+        <main>
+          <div className="full-width generator-wrapper">
+            <h1 className="large">Playlist Generator</h1>
+            <p>
+              Search -{">"} Select 5 tracks -{">"} Select mood -{">"} Choose
+              name -{">"} Generate.
+            </p>
+            <form onSubmit={handleSearch} className="search shadow ">
+              <FaSearch />
+              <input className="medium" placeholder="Search..." type="text" />
+            </form>
+          </div>
+          <section className="results shadow">
+            <div className="left">
+              <h1 className="shadow">Search Results</h1>
+              <ul>
+                {searchResults.map((track) => {
+                  return (
+                    <TrackContainer
+                      track={track}
+                      onClick={() => onSelect(track)}
+                    />
+                  );
+                })}
+              </ul>
+            </div>
 
-        <aside className="right">
-          <h1>Details</h1>
-          <label htmlFor="name">Name</label>
-          <input
-            onInput={handlePlaylistNameChange}
-            type="text"
-            name="Name"
-            id="name"
-            maxLength={100}
-            placeholder="Playlist name..."
-          />
-          <label htmlFor="description">Description</label>
-          <textarea
-            onInput={handleDescriptionChange}
-            name="Description"
-            id="description"
-            rows={4}
-            maxLength={300}
-            placeholder="Optional description..."
-          />
-          <h1>Mood</h1>
-          <div className="mood-sliders">
-            <div className="slider">
-              <label htmlFor="energy">Energy</label>
+            <aside className="right">
+              <h1>Details</h1>
+              <label htmlFor="name">Name</label>
               <input
-                onInput={handleEnergyChange}
-                type="range"
-                name="Energy"
-                id="energy"
-                min={0}
-                max={100}
+                onInput={handlePlaylistNameChange}
+                type="text"
+                name="Name"
+                id="name"
+                maxLength={100}
+                placeholder="Playlist name..."
               />
-            </div>
-            <div className="slider">
-              <label htmlFor="danceability">Danceability</label>
-              <input
-                onInput={handleDanceabilityChange}
-                type="range"
-                name="Danceability"
-                id="danceability"
-                min={0}
-                max={100}
+              <label htmlFor="description">Description</label>
+              <textarea
+                onInput={handleDescriptionChange}
+                name="Description"
+                id="description"
+                rows={4}
+                maxLength={300}
+                placeholder="Optional description..."
               />
-            </div>
-          </div>
-          <div className="selected-tracks">
-            <h1>Selected Tracks [{selectedTracks.length}/5]</h1>
-            <ul>
-              {selectedTracks.map((track) => {
-                return (
-                  <TrackContainer
-                    track={track}
-                    onClick={() => onSelect(track)}
+              <h1>Mood</h1>
+              <div className="mood-sliders">
+                <div className="slider">
+                  <label htmlFor="energy">Energy</label>
+                  <input
+                    onInput={handleEnergyChange}
+                    type="range"
+                    name="Energy"
+                    id="energy"
+                    min={0}
+                    max={100}
                   />
-                );
-              })}
-            </ul>
-          </div>
-          {selectedTracks.length === 5 && (
-            <PrimaryButton
-              onClick={handlePlaylistSubmit}
-              className="bottom medium"
-            >
-              Generate
-            </PrimaryButton>
-          )}
-          {selectedTracks.length < 5 && (
-            <PrimaryButton className="bottom medium disabled">
-              Generate
-            </PrimaryButton>
-          )}
-        </aside>
-      </section>
-    </main>
+                </div>
+                <div className="slider">
+                  <label htmlFor="danceability">Danceability</label>
+                  <input
+                    onInput={handleDanceabilityChange}
+                    type="range"
+                    name="Danceability"
+                    id="danceability"
+                    min={0}
+                    max={100}
+                  />
+                </div>
+              </div>
+              <div className="selected-tracks">
+                <h1>Selected Tracks [{selectedTracks.length}/5]</h1>
+                <ul>
+                  {selectedTracks.map((track) => {
+                    return (
+                      <TrackContainer
+                        track={track}
+                        onClick={() => onSelect(track)}
+                      />
+                    );
+                  })}
+                </ul>
+              </div>
+              {selectedTracks.length === 5 && (
+                <PrimaryButton
+                  onClick={handlePlaylistSubmit}
+                  className="bottom medium"
+                >
+                  Generate
+                </PrimaryButton>
+              )}
+              {selectedTracks.length < 5 && playlistName.length < 1 && (
+                <PrimaryButton className="bottom medium disabled">
+                  Generate
+                </PrimaryButton>
+              )}
+            </aside>
+          </section>
+        </main>
+      )}
+    </>
   );
 };
 

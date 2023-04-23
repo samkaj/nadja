@@ -17,6 +17,7 @@ export const SpotifyObjectFactory = {
     album: track.album.name,
     genres: track.genres,
     albumArtUrl: track.album.images[0]?.url ?? "",
+    uri: track.uri,
   }),
 
   /**

@@ -5,6 +5,7 @@ import useLocalStorage from "../hooks/PersistState";
 export type User = {
   accessToken: string;
   refreshToken: string;
+  userId: string;
   name: string;
   sessionExpiresAt: number;
   imageUrl: string;
@@ -82,6 +83,7 @@ const UserContextProvider = (props: UserContextProviderProps) => {
             refreshToken: data.refresh_token,
             sessionExpiresAt: Date.now() + data.expires_in * 1000,
             imageUrl: imageUrl,
+            userId: data.user_id,
           };
       setUser(user);
     });
@@ -115,17 +117,17 @@ export const loginUser = async (code: string): Promise<User> => {
     },
     body: `grant_type=${grantType}&code=${code}&redirect_uri=${redirectUri}`,
   });
-
   return response.json().then(async (data) => {
-    const { name, imageUrl } = await getUserInfo(data.access_token);
+    const info = await getUserInfo(data.access_token);
     const user: User = data.error
       ? null
       : {
-          name: name,
+          name: info.name,
           accessToken: data.access_token,
           refreshToken: data.refresh_token,
           sessionExpiresAt: Date.now() + data.expires_in * 1000,
-          imageUrl: imageUrl,
+          imageUrl: info.imageUrl,
+          userId: info.userId,
         };
     return user;
   });
@@ -133,16 +135,16 @@ export const loginUser = async (code: string): Promise<User> => {
 
 export const getUserInfo = async (
   accessToken: string
-): Promise<{ name: string; imageUrl: string }> => {
-  if (!accessToken) return { name: "Unknown", imageUrl: "" };
+): Promise<{ name: string; imageUrl: string; userId: string }> => {
+  if (!accessToken) return { name: "Unknown", imageUrl: "", userId: "" };
   const url = "https://api.spotify.com/v1/me";
   const headers = { Authorization: "Bearer " + accessToken };
-
   const response = await fetch(url, { headers });
   return response.json().then((data) => {
     return {
       name: data.display_name,
       imageUrl: data.images[0].url ?? "",
+      userId: data.id,
     };
   });
 };
@@ -152,7 +154,8 @@ export const authorize = () => {
   const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
   const responseType = "code";
   const redirectUri = "http://localhost:3000/callback";
-  const scope = "playlist-modify-public%20user-top-read%20user-read-private";
+  const scope =
+    "playlist-modify-public%20user-top-read%20user-read-private%20playlist-modify-private";
   const state = process.env.REACT_APP_SPOTIFY_STATE;
   window.location.href = `${url}?client_id=${clientId}&response_type=${responseType}&redirect_uri=${redirectUri}&scope=${scope}&state=${state}`;
 };

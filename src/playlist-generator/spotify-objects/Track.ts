@@ -9,4 +9,5 @@ export type Track = {
   album: string;
   genres: string[];
   albumArtUrl: string;
+  uri: string;
 };

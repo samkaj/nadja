@@ -8,12 +8,12 @@ type PlaylistRequest = {
   danceability: number;
   description: string;
 };
+
 export const getRecommendations = async (request: PlaylistRequest) => {
   const { playlistName, accessToken, selectedTracks, energy, danceability } =
     request;
-  console.log(playlistName, accessToken, selectedTracks, energy, danceability);
-  const res = await fetch(
-    `https://api.spotify.com/v1/recommendations?limit=10&seed_tracks=${selectedTracks
+  const playlist = await fetch(
+    `https://api.spotify.com/v1/recommendations?limit=60&target_energy=${energy}&target_danceability=${danceability}&seed_tracks=${selectedTracks
       .map((track) => track.id)
       .join(",")}`,
     {
@@ -22,5 +22,6 @@ export const getRecommendations = async (request: PlaylistRequest) => {
       },
     }
   ).then((res) => res.json());
-  return res;
+  playlist.name = playlistName;
+  return playlist;
 };
