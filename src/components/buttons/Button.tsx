@@ -20,11 +20,12 @@ export const Button = ({
 );
 
 export const PrimaryButton = ({
+  Icon,
   onClick,
   children,
   className,
 }: React.PropsWithChildren<ButtonProps>): JSX.Element => (
-  <Button onClick={onClick} className={`primary ${className}`}>
+  <Button Icon={Icon} onClick={onClick} className={`primary ${className}`}>
     {children}
   </Button>
 );
@@ -32,8 +33,9 @@ export const PrimaryButton = ({
 export const SecondaryButton = ({
   onClick,
   children,
+  className,
 }: React.PropsWithChildren<ButtonProps>): JSX.Element => (
-  <Button onClick={onClick} className="secondary">
+  <Button onClick={onClick} className={`secondary ${className}`}>
     {children}
   </Button>
 );
@@ -41,8 +43,9 @@ export const SecondaryButton = ({
 export const TertiaryButton = ({
   onClick,
   children,
+  className,
 }: React.PropsWithChildren<ButtonProps>): JSX.Element => (
-  <Button onClick={onClick} className="tertiary">
+  <Button onClick={onClick} className={`tertiary ${className}`}>
     {children}
   </Button>
 );
@@ -50,8 +53,9 @@ export const TertiaryButton = ({
 export const LinkButton = ({
   onClick,
   children,
+  className,
 }: React.PropsWithChildren<ButtonProps>): JSX.Element => (
-  <Button onClick={onClick} className="clean">
+  <Button onClick={onClick} className={`clean ${className}`}>
     {children}
   </Button>
 );
